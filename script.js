@@ -6,9 +6,14 @@ const errorDiv = document.getElementById('error');
 async function fetchQuotes() {
     try {
         const response = await fetch(apiUrl);
-        if (!response.ok) {
+        if (response.status === 404) {
+            throw new Error('Quotes not found');
+        } else if (response.status === 500) {
+            throw new Error('Server Error');
+        } else if (!response.ok) {
             throw new Error('Network Error');
         }
+
         const data = await response.json();
         return data.quotes;
     } catch (error) {
