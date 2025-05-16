@@ -26,7 +26,6 @@ function displayQuotes(quotes) {
     });
 }
 
-
 function filterQuotes(quotes) {
     const searchTerm = filterInput.value.toLowerCase();
     const filteredQuotes = quotes.filter(quote => 
@@ -39,11 +38,14 @@ function filterQuotes(quotes) {
     displayQuotes(filteredQuotes);
 }
 
-const quotes = await fetchQuotes();
-if (quotes) {
-    displayQuotes(quotes);
-    filterInput.addEventListener('input', () => filterQuotes(quotes));
-    
+async function init() {
+    const quotes = await fetchQuotes();
+    if (quotes) {
+        displayQuotes(quotes);
+        filterInput.addEventListener('input', () => filterQuotes(quotes));
+    }
 }
+
+init();
 
 
